@@ -1,28 +1,25 @@
+import { BasePage } from './basePage';
 export class CatalogPage {
     constructor(page) {
-        this.page = page
-        this.btnAccept = page.getByLabel('Соглашаюсь', { exact: true });
-        this.btnMenu = page.getByRole('img', { name: 'Электроника' });
-        this.btnSubMenu = page.getByText('Телевидение и видео');
-        this.btnPage = page.getByRole('link', { name: 'Телевизоры' });
+        this.page = page;
+        this.basePage = new BasePage(page);
     }
-    async accept() {
-        await this.btnAccept.click();
+    async accept(text) {
+        await this.basePage.getLocatorByText(text, true).click();
     }
 
 
-    async navigateMenu() {
-        await this.btnMenu.click();
+    async navigateMenu(text) {
+        await this.basePage.getLocatorByText(text, true).click();
 
     }
 
-    async navigateSubMenu() {
-        await this.btnSubMenu.click();
-
+    async navigateSubMenu(text) {
+        await this.basePage.getLocatorByText(text, true).click();
     }
 
-    async navigatePage() {
-        await this.btnPage.click();
+    async navigatePage(text) {
+        await this.page.getByRole('link', { name: text }).click();
     }
 
 }

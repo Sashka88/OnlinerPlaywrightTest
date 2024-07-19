@@ -1,43 +1,39 @@
-export class TvPage{
-constructor(page){
-    this.page = page
-    this.cbxMaker =  page.getByText('Samsung', { exact: true });
-    this.fieldPrice = page.getByPlaceholder('до');
-    this.cbxMinDiagonal = page.getByText('40"').first();
-    this.cbxMaxDiagonal = page.getByText('50"').first();
-    this.cbxResolution = page.getByText('1920x1080 (Full HD)', { exact: true });
-}
+import { BasePage } from './basePage';
+export class TvPage {
+    constructor(page) {
+        this.page = page
+        this.basePage = new BasePage(page);
+    //    this.fieldPrice = page.getByPlaceholder('до');
+    }
+
+    async selectMaker(text) {
+        await this.basePage.getLocatorByText(text, true).click();
+    }
+
+    async writePrice(placeholder, price) {
+        await this.page.getByPlaceholder(placeholder).fill(price);
+    }
 
 
-async selectMaker(){
-    await this.cbxMaker.click();
+    async selectDiagonal(min, max) {
+        await this.basePage.getLocatorByText(min, true).first().click();
+        await this.basePage.getLocatorByText(max, true).first().click();
+    }
 
-}
+    async selectResolution(text) {
+        await this.basePage.getLocatorByText(text, true).click();
+    }
 
-async writePrice(price){
-    await this.fieldPrice.fill(price)
-}
+     vailidateMaker() {
+        
+    }
 
+    vailidatePrice() {
 
-async selectDiagonal(){
-    await this.cbxMinDiagonal.click();
-    await this.cbxMaxDiagonal.click();
-}
+    }
 
-async selectResolution(){
-    await this.cbxResolution.click()
-} 
+    vailidateDiagonal() {
 
-vailidateMaker(){
-
-}
-vailidatePrice() {
-
-}
-
-vailidateDiagonal() {
-
-}
-vailidateResolution() {
-}
+    }
+    
 }
