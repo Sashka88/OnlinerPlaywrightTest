@@ -9,4 +9,8 @@ export class BasePage {
             return this.page.getByText(text);
         }
     }
+
+    async waitForLoadState(state = 'load') {
+        await this.page.waitForLoadState(state);
+    }
 }
