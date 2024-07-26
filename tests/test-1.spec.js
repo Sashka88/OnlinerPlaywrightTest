@@ -3,7 +3,6 @@ import { TvPage } from '../pages/tvPage'
 
 test('test', async ({ page, tvCatalogPage, tv }) => {
   test.setTimeout(60000);
-  // skip navigation: directly in test with goto, Page Object method goto/open/go
   const tvPage = new TvPage(page);
   await tvPage.selectMaker(tv.maker);
   await tvPage.writePrice(tv.placeholderText, tv.price);
@@ -39,16 +38,4 @@ function toFloat(text) {
     .filter(Number);
 
   return Number(textNumber);
-}
-
-function getDiagonal(detailsSectionText) {
-  /*
-  43" 1920x1080 (Full HD)
-частота матрицы 60 Гц
-Smart TV (Samsung Tizen)
-AirPlay
-Wi-Fi
-   */
-
-  detailsSectionText.split('\n')
 }
