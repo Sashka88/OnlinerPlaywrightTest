@@ -8,6 +8,7 @@ test('test', async ({ page, tvCatalogPage, tv }) => {
   await tvPage.writePrice(tv.placeholderText, tv.price);
   await tvPage.selectDiagonal(tv.minDiagonal, tv.maxDiagonal);
   await tvPage.selectResolution(tv.resolution);
+  await tvPage.waitForLoadState('load');
 
   const itemsNumber = await tvPage.tvItems.count();
   expect(itemsNumber, 'should have at least one item').toBeGreaterThan(0);
@@ -20,12 +21,12 @@ test('test', async ({ page, tvCatalogPage, tv }) => {
     console.log(detailsText);
     const match = detailsText.match(/\d{2}/);
     const diagNumber = match ? parseInt(match[0], 10) : null
-    expect(diagNumber).toBeGreaterThanOrEqual(parseInt(tv.minDiagonal));
-    expect(diagNumber).toBeLessThan(parseInt(tv.maxDiagonal));
+    expect.soft(diagNumber, `should diagonal be equal or greater than ${tv.minDiagonal}`).toBeGreaterThanOrEqual(parseInt(tv.minDiagonal));
+    expect.soft(diagNumber, `should diagonal be less than ${tv.minDiagonal}`).toBeLessThan(parseInt(tv.maxDiagonal));
     const priceText = await tvPage.price.nth(i).innerText();
     console.log(priceText);
     const price = toFloat(priceText);
-    expect.soft(price).toBeLessThanOrEqual(parseFloat(tv.price));
+    expect.soft(price, `should price be equal or less than ${tv.price}`).toBeLessThanOrEqual(parseFloat(tv.price));
   }
 
   await page.pause();

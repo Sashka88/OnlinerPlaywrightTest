@@ -6,7 +6,6 @@ export class CatalogPage {
     }
     async accept(text) {
         await this.basePage.getLocatorByText(text).click();
-        await this.basePage.waitForLoadState();
     }
 
 
