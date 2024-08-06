@@ -1,6 +1,7 @@
 import test from '@playwright/test';
-import { BasePage } from './basePage';
-export class TvPage extends BasePage {
+import {FilterPanelPage} from "./filterPanelPage.js";
+
+export class TvPage extends FilterPanelPage {
     constructor(page) {
         super(page);
         this.page = page;
@@ -15,41 +16,41 @@ export class TvPage extends BasePage {
         await this.page.goto('.../tv');
     }
 
-    async selectMaker(maker) {
-        await test.step(`select tv maker "${maker}"`, async () => {
-            const makerPromise = this.page.waitForResponse('**/search/**');
-            await this.getLocatorByText(maker, true).click();
-            await makerPromise;
-        })
-    }
+    // async selectMaker(maker) {
+    //     await test.step(`select tv maker "${maker}"`, async () => {
+    //         const makerPromise = this.page.waitForResponse('**/search/**');
+    //         await this.getLocatorByText(maker, true).click();
+    //         await makerPromise;
+    //     })
+    // }
 
-    async writePrice(placeholder, price) {
-        await test.step(`select price "${price}"`, async () => {
-            const pricePromise = this.page.waitForResponse('**/search/**');
-            await this.page.getByPlaceholder(placeholder).fill(price);
-            await pricePromise;
-        })
-    }
+    // async writePrice(placeholder, price) {
+    //     await test.step(`select price "${price}"`, async () => {
+    //         const pricePromise = this.page.waitForResponse('**/search/**');
+    //         await this.page.getByPlaceholder(placeholder).fill(price);
+    //         await pricePromise;
+    //     })
+    // }
 
 
-    async selectDiagonal(min, max) {
-        await test.step(`select min diagonal "${min}" and max  "${max}"`, async () => {
-            const diagPromise = this.page.waitForResponse('**/search/**');
-            await this.getLocatorByText(min, true).first().click();
-            await diagPromise;
-            await this.getLocatorByText(max, true).first().click();
-            await diagPromise;
-        })
-    }
+    // async selectDiagonal(min, max) {
+    //     await test.step(`select min diagonal "${min}" and max  "${max}"`, async () => {
+    //         const diagPromise = this.page.waitForResponse('**/search/**');
+    //         await this.getLocatorByText(min, true).first().click();
+    //         await diagPromise;
+    //         await this.getLocatorByText(max, true).first().click();
+    //         await diagPromise;
+    //     })
+    // }
 
-    async selectResolution(resolution) {
-        await test.step(`select resolution "${resolution}"`, async () => {
-            const resPromise = this.page.waitForResponse('**/search/**');
-            await this.getLocatorByText(resolution, true).first().click();
-            await resPromise;
-            // const resEnd = this.page.waitForURL('**/resolution/**');
-            // await resEnd;
-        })
-    }
+    // async selectResolution(resolution) {
+    //     await test.step(`select resolution "${resolution}"`, async () => {
+    //         const resPromise = this.page.waitForResponse('**/search/**');
+    //         await this.getLocatorByText(resolution, true).first().click();
+    //         await resPromise;
+    //         // const resEnd = this.page.waitForURL('**/resolution/**');
+    //         // await resEnd;
+    //     })
+    // }
 
 }

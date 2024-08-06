@@ -10,6 +10,10 @@ export class BasePage {
         }
     }
 
+    async selectCheckbox(name) {
+        await this.getLocatorByText(name).first().click();
+    }
+
     async waitForLoadState(state = 'load') {
         await this.page.waitForLoadState(state);
     }
