@@ -5,7 +5,7 @@ export class TvPage extends FilterPanelPage {
     constructor(page) {
         super(page);
         this.page = page;
-        this.tvItems = this.page.locator('.catalog-form__offers-flex');
+        this.tvItems = this.page.locator('.catalog-form__offers-item .catalog-form__offers-flex');
         this.tvMaker = this.page.locator('.catalog-form__description_base-additional');
         this.detailsSections = this.page.locator('.catalog-form__parameter-part.catalog-form__parameter-part_1 .catalog-form__description').first();
         this.price = this.page.locator('.catalog-form__link.catalog-form__link_nodecor.catalog-form__link_primary-additional.catalog-form__link_huge-additional.catalog-form__link_font-weight_bold');
