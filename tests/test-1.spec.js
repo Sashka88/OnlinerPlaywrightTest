@@ -18,14 +18,13 @@ test('test', async ({ page, tvCatalogPage, tv }) => {
     await expect.soft(tvPage.tvMaker.nth(i), `should maker be ${tv.maker}`).toContainText(tv.maker);
     await expect.soft(tvPage.resolutions.nth(i), `should resolution be ${tv.resolution}`).toContainText(tv.resolution);
     const detailsText = await tvPage.detailsSections.innerText();
-    console.log(detailsText);
+    // console.log(detailsText);
     const match = detailsText.match(/\d{2}/);
     const diagNumber = match ? parseInt(match[0], 10) : null
     expect.soft(diagNumber, `should diagonal be equal or greater than ${tv.minDiagonal}`).toBeGreaterThanOrEqual(parseInt(tv.minDiagonal));
     expect.soft(diagNumber, `should diagonal be less than ${tv.minDiagonal}`).toBeLessThan(parseInt(tv.maxDiagonal));
     const priceText = await tvPage.price.nth(i).innerText();
-    console.log(priceText);
-
+    // console.log(priceText);
     const price = toFloat(priceText);
     expect.soft(price, `should price be equal or less than ${tv.price}`).toBeLessThanOrEqual(parseFloat(tv.price));
   }

@@ -47,6 +47,8 @@ export class TvPage extends BasePage {
             const resPromise = this.page.waitForResponse('**/search/**');
             await this.getLocatorByText(resolution, true).first().click();
             await resPromise;
+            // const resEnd = this.page.waitForURL('**/resolution/**');
+            // await resEnd;
         })
     }
 
