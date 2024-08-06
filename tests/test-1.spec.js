@@ -25,6 +25,7 @@ test('test', async ({ page, tvCatalogPage, tv }) => {
     expect.soft(diagNumber, `should diagonal be less than ${tv.minDiagonal}`).toBeLessThan(parseInt(tv.maxDiagonal));
     const priceText = await tvPage.price.nth(i).innerText();
     console.log(priceText);
+
     const price = toFloat(priceText);
     expect.soft(price, `should price be equal or less than ${tv.price}`).toBeLessThanOrEqual(parseFloat(tv.price));
   }
@@ -33,10 +34,8 @@ test('test', async ({ page, tvCatalogPage, tv }) => {
 });
 
 function toFloat(text) {
-  const [textNumber] = text
-    .split(' ')
-    .map(v => v.replace(',', '.'))
-    .filter(Number);
-
-  return Number(textNumber);
+  const textNumber = text
+    .match(/[\d,]+/)[0]
+    .replace(',', '.');
+  return parseFloat(textNumber);
 }
