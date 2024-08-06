@@ -12,7 +12,8 @@ for (const arrayElement of arr) {
       tv.maker,
       tv.minDiagonal,
       tv.maxDiagonal,
-      tv.resolution
+      tv.resolution,
+      tv.priceTo
     ]);
 
     await tvPage.waitForLoadState('load');
@@ -22,14 +23,14 @@ for (const arrayElement of arr) {
     console.log(itemsNumber);
 
     for (let i = 0; i < itemsNumber; i++) {
-      await expect.soft(tvPage.tvMaker.nth(i), `should maker be ${tv.maker}`).toContainText(tv.maker);
-      await expect.soft(tvPage.resolutions.nth(i), `should resolution be ${tv.resolution}`).toContainText(tv.resolution);
+      await expect.soft(tvPage.tvMaker.nth(i), `should maker be ${tv.maker}`).toContainText(tv.maker.value);
+      await expect.soft(tvPage.resolutions.nth(i), `should resolution be ${tv.resolution}`).toContainText(tv.resolution.value);
       const detailsText = await tvPage.detailsSections.innerText();
       // console.log(detailsText);
       const match = detailsText.match(/\d{2}/);
       const diagNumber = match ? parseInt(match[0], 10) : null
-      expect.soft(diagNumber, `should diagonal be equal or greater than ${tv.minDiagonal}`).toBeGreaterThanOrEqual(parseInt(tv.minDiagonal));
-      expect.soft(diagNumber, `should diagonal be less than ${tv.minDiagonal}`).toBeLessThan(parseInt(tv.maxDiagonal));
+      expect.soft(diagNumber, `should diagonal be equal or greater than ${tv.minDiagonal}`).toBeGreaterThanOrEqual(parseInt(tv.minDiagonal.value));
+      expect.soft(diagNumber, `should diagonal be less than ${tv.minDiagonal}`).toBeLessThan(parseInt(tv.maxDiagonal.value));
       // const priceText = await tvPage.price.nth(i).innerText();
       // // console.log(priceText);
       // const price = toFloat(priceText);

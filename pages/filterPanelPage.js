@@ -1,5 +1,6 @@
 import test from "@playwright/test";
 import {BasePage} from "./basePage.js";
+import {filterType} from "../static/filterTypes.js";
 
 export class FilterPanelPage extends BasePage{
     constructor(page) {
@@ -15,7 +16,16 @@ export class FilterPanelPage extends BasePage{
     async setFilters(filters) {
         await test.step('select filters on left panel', async () => {
             for (const filter of filters) {
-                await this.selectCheckbox(filter)
+
+                if (filter.type === filterType.checkbox) {
+                    await this.selectCheckbox(filter);
+                }
+
+                if (filter.type === filterType.input) {
+                    await this.fillInput(filter);
+                }
+
+                // ..
 
             }
 

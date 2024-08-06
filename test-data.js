@@ -1,13 +1,36 @@
+import {filterType} from "./static/filterTypes.js";
+import {labels} from "./static/labelNames.js";
+
 const tv = {
   acceptButtonText: "Соглашаюсь",
   menu: "Электроника",
   submenu: "Телевидение и видео",
   page: "Телевизоры",
-  maker: "Samsung",
-  placeholderText: "до",
-  price: "1500",
-  minDiagonal: '40"',
-  maxDiagonal:'50"',
-  resolution: "1920x1080 (Full HD)"
+  maker: {
+    type: filterType.checkbox,
+    value: "Samsung"
+  },
+  priceTo: {
+    type: filterType.input,
+    placeholder: labels.to,
+    value: "1500"
+  },
+  priceFrom: {
+    type: filterType.input,
+    placeholder: labels.from,
+    value: "100"
+  },
+  minDiagonal: {
+    type: filterType.checkbox,
+    value: '40"'
+  },
+  maxDiagonal: {
+    type: filterType.checkbox,
+    value: '50'
+  },
+  resolution: {
+    type: filterType.checkbox,
+    value: "1920x1080 (Full HD)"
+  }
 };
 export default tv;
