@@ -1,5 +1,5 @@
-import test from '@playwright/test';
-import {FilterPanelPage} from "./filterPanelPage.js";
+import { expect } from '@playwright/test'
+import { FilterPanelPage } from "./filterPanelPage.js";
 
 export class TvPage extends FilterPanelPage {
     constructor(page) {
@@ -16,9 +16,47 @@ export class TvPage extends FilterPanelPage {
         await this.page.goto('.../tv');
     }
 
-    async verifyMaker(actualResult, text, expectedResult){
-         expect.soft(actualResult, text).toContainText(expectedResult);
+    async verifyPage(text) {
+        await expect(this.page.getByRole('heading', { name: text })).toBeVisible();
     }
+
+    async verifyMaker(actualResult, text, expectedResult) {
+        expect.soft(actualResult, text).toContainText(expectedResult);
+    }
+
+    async getTvMaker(i) {
+        return this.tvMaker.nth(i);
+    }
+
+    async getResolution(i) {
+        return this.resolutions.nth(i);
+    }
+
+    async getDiagonal() {
+        const detailsText = await this.detailsSections.innerText();
+        const match = detailsText.match(/\d{2}/);
+        const diagNumber = match ? parseInt(match[0], 10) : null;
+        return diagNumber;
+    }
+
+    async getPrice(i) {
+        const priceText = await this.price.nth(i).innerText();
+        const price = this.toFloat(priceText);
+        return price;
+    }
+
+    async toFloat(text) {
+        const textNumber = text
+            .match(/[\d,]+/)[0]
+            .replace(',', '.');
+        return parseFloat(textNumber);
+    }
+
+    async getSearchResults() {
+        const itemsNumber = await this.tvItems.count();
+        return itemsNumber;
+    }
+
 
     // async selectMaker(maker) {
     //     await test.step(`select tv maker "${maker}"`, async () => {

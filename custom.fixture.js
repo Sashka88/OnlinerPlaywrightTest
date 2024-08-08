@@ -1,16 +1,17 @@
 import { test as baseTest, expect as baseExpect } from '@playwright/test';
 import testData from './testData/test-data';
-import testData1 from './testData/titles';
+import titlesData from './static/titles';
 
 export const test = baseTest.extend({
-    titles: [testData1, {option: true}],
+    titles: [titlesData, { option: true }],
     tv: [testData, { option: true }],
-    
-async homePage ({page}, use){
-    await page.route('**/fundingchoicesmessages.google.com/**', route => route.abort());
-        await page.goto('https://www.onliner.by/');
 
-},
+    async homePage({ page }, use) {
+        await page.route('**/fundingchoicesmessages.google.com/**', route => route.abort());
+        await page.goto('https://www.onliner.by/');
+        await use(page);
+
+    },
     async tvCatalogPage({ page }, use) {
         await page.route('**/fundingchoicesmessages.google.com/**', route => route.abort());
         await page.goto('https://catalog.onliner.by/tv');

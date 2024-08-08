@@ -1,20 +1,18 @@
-import { test, expect } from '../custom.fixture'
-import {MainPage} from '../pages/mainPage'
-import {CatalogPage} from '../pages/catalogPage'
+import { test} from '../custom.fixture'
+import { MainPage } from '../pages/mainPage'
+import { CatalogPage } from '../pages/catalogPage'
+import { TvPage } from '../pages/tvPage'
 
-const arr = [1];
-
-for (const arrayElement of arr) {
-  test(`test ${arrayElement}`, async ({ page, homePage, titles }) => {
-    const Main = new MainPage(page);
-    await expect(page.getByRole('link', { name: 'Onlíner', exact: true })).toBeVisible();
-    await Main.navigatePanel(titles.sectionName);
-    await expect(page.locator('h1')).toContainText('Каталог');
-    const Catalog = new CatalogPage(page);
-    await expect(page.getByRole('heading', { name: 'Каталог' })).toBeVisible();
-    await Catalog.navigateMenu(titles.menuName);
-    await Catalog.navigateSubMenu(titles.submenuName);
-    await Catalog.navigatePage(titles.pageTitle);
-  await expect(page.getByRole('heading', { name: 'Телевизоры' })).toBeVisible();
+test(`test `, async ({ homePage }) => {
+  // test.setTimeout(60000);
+  const mainPage = new MainPage(homePage);
+  await mainPage.verifyPage('Onlíner', 'selected page should open');
+  await mainPage.navigatePanel('Каталог');
+  const catalogPage = new CatalogPage(homePage);
+  await catalogPage.verifyPage('Каталог', 'selected page should open');
+  await catalogPage.navigateMenu('Электроника');
+  await catalogPage.navigateSubMenu('Телевидение и видео');
+  await catalogPage.navigatePage('Телевизоры');
+  const tvPage = new TvPage(homePage);
+  await tvPage.verifyPage('Телевизоры', 'selected page should open');
 })
-}
